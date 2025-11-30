@@ -1,14 +1,15 @@
-# 📊 EDA Report – Dataset 1
+# 📊 EDA Report – Sales Dataset
 
-### ✔ Summary
-- Total rows: 500
-- Missing values handled
-- Outliers detected in sales column
+### Summary
+- Data contains 7 rows.
+- No missing values.
+- Sales are highest on Day 6.
+- Strong positive trend over the week.
 
-### ✔ Key Insights
-- Sales peak around seasonal months
-- Strong relationship between price and demand
+### Insights
+- Higher prices do not always reduce sales.
+- Potential seasonality observed.
 
-### ✔ Visuals
-Refer `/visualizations/chart1.png` for the trend graph.
+### Visuals
+Refer `visualizations/chart1.png`.
 
