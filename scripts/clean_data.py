@@ -5,5 +5,7 @@ def clean_dataset(path):
     df = df.drop_duplicates()
     df = df.fillna(0)
     df.to_csv(path, index=False)
-    print("Cleaned:", path)
+    print(f"Cleaned: {path}")
 
+clean_dataset("../datasets/dataset1.csv")
+clean_dataset("../datasets/dataset2.csv")
