@@ -1,0 +1,2 @@
+This file represents a sales trend chart.
+(Add chart1.png when created.)
