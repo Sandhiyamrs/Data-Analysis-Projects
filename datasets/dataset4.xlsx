@@ -1,0 +1,8 @@
+# helper create_dataset4.py
+import pandas as pd
+df = pd.DataFrame({
+    "id":[1,2,3],
+    "date":["2024-01-01","2024-01-02","2024-01-03"],
+    "value":[123.4,130.1,128.6]
+})
+df.to_excel("datasets/dataset4.xlsx", index=False)
