@@ -1,0 +1,3 @@
+Scatter matrix instructions:
+- Use pandas.plotting.scatter_matrix(df[['A','B','C']])
+- Save figure as visualizations/scatter_matrix.png
