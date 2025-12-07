@@ -1,0 +1,4 @@
+Heatmap steps:
+1. Read pivot table by category vs month.
+2. Use seaborn.heatmap(pivot, annot=True).
+3. Save to visualizations/heatmap.png
