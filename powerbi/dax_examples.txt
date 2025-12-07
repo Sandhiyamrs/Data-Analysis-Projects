@@ -35,3 +35,18 @@ DIVIDE(
     CALCULATE([Total Spend], campaigns),
     0
 )
+
+---
+
+Sample data model & relationships
+
+customers[CustomerID] 1 — many orders[CustomerID]
+
+orders[OrderDate] connects to Calendar[Date]
+
+campaigns[CampaignID] 1 — many campaign_perf[CampaignID]
+
+If you have order_campaign_map table, link orders[OrderID] → order_campaign_map[OrderID] → campaigns[CampaignID]
+
+Create a Calendar table in Power Query or DAX:
+Calendar = CALENDAR(MIN(orders[OrderDate]), MAX(orders[OrderDate]))
