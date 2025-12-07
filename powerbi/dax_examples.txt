@@ -1,0 +1,37 @@
+-- Basic counts & sums
+Total Customers = DISTINCTCOUNT(customers[CustomerID])
+Total Revenue = SUM(orders[Revenue])
+Total Spend = SUM(campaigns[Spend])
+
+-- Period measures (example uses Date table named 'Calendar')
+Revenue This Month = CALCULATE([Total Revenue], DATESMTD('Calendar'[Date]))
+Revenue Prev Month = CALCULATE([Total Revenue], DATEADD('Calendar'[Date], -1, MONTH))
+
+-- Churn rate (example: churned customers in period / customers at start)
+Customers At Start = CALCULATE([Total Customers], PREVIOUSMONTH('Calendar'[Date]))
+
+Churned Customers = 
+VAR churned = -- define churned logic (example: customers with last order < period)
+    CALCULATE(
+        DISTINCTCOUNT(orders[CustomerID]),
+        FILTER(
+            SUMMARIZE(orders, orders[CustomerID], "LastOrder", MAX(orders[OrderDate])),
+            [LastOrder] < STARTOFMONTH('Calendar'[Date])
+        )
+    )
+RETURN churned
+
+Churn Rate (%) = DIVIDE([Churned Customers], [Customers At Start], 0)
+
+-- Marketing KPIs
+CTR = DIVIDE(SUM(campaign_perf[Clicks]), SUM(campaign_perf[Impressions]), 0)
+CVR = DIVIDE(SUM(campaign_perf[Conversions]), SUM(campaign_perf[Clicks]), 0)
+ROAS = DIVIDE([Total Revenue], [Total Spend], 0)
+
+-- ROAS per campaign
+ROAS (Campaign) = 
+DIVIDE(
+    CALCULATE([Total Revenue], RELATEDTABLE(campaign_perf)),
+    CALCULATE([Total Spend], campaigns),
+    0
+)
