@@ -1,0 +1,4 @@
+Geo visualization:
+- Use geopandas to load world shapefile
+- Merge points with country geometries
+- Save choropleth to visualizations/geo_map.png
