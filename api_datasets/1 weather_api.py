@@ -1,14 +1,21 @@
 import requests
-import pandas as pd
 
-url = "https://api.open-meteo.com/v1/forecast?latitude=11.01&longitude=76.95&hourly=temperature_2m"
+API_KEY = "YOUR_API_KEY"
+CITY = "London"
+URL = f"https://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}&units=metric"
 
-data = requests.get(url).json()
+def fetch_weather():
+    response = requests.get(URL)
+    response.raise_for_status()
+    data = response.json()
 
-df = pd.DataFrame({
-    'time': data['hourly']['time'],
-    'temperature': data['hourly']['temperature_2m']
-})
+    weather_info = {
+        "city": CITY,
+        "temperature": data["main"]["temp"],
+        "humidity": data["main"]["humidity"],
+        "weather": data["weather"][0]["description"]
+    }
+    return weather_info
 
-df.to_csv("weather.csv", index=False)
-print("Weather data saved.")
+if __name__ == "__main__":
+    print(fetch_weather())
