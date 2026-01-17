@@ -1,7 +1,16 @@
-import numpy as np
+import pandas as pd
+from statsmodels.tsa.seasonal import seasonal_decompose
 
-series = np.array([100, 102, 101, 500, 103])
-threshold = series.mean() + 2 * series.std()
+df = pd.read_csv("dataset1.csv", parse_dates=True, index_col=0)
 
-anomalies = series[series > threshold]
-print("Time series anomalies:", anomalies)
+decomposition = seasonal_decompose(
+    df.iloc[:, 0],
+    model="additive",
+    period=12
+)
+
+residual = decomposition.resid.dropna()
+threshold = residual.std() * 3
+
+anomalies = residual[abs(residual) > threshold]
+print(anomalies)
