@@ -1,7 +1,19 @@
+import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
+from sklearn.ensemble import IsolationForest
 
-data = np.array([10,12,11,13,100])
-plt.plot(data, marker='o')
-plt.title("Anomaly Visualization")
+df = pd.read_csv("dataset1.csv")
+
+model = IsolationForest(contamination=0.05, random_state=42)
+df["anomaly"] = model.fit_predict(df)
+
+plt.figure(figsize=(10, 5))
+plt.plot(df.index, df.iloc[:, 0], label="Data")
+plt.scatter(
+    df[df["anomaly"] == -1].index,
+    df[df["anomaly"] == -1].iloc[:, 0],
+    color="red",
+    label="Anomalies"
+)
+plt.legend()
 plt.show()
