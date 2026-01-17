@@ -1,8 +1,14 @@
+import pandas as pd
 from sklearn.neighbors import LocalOutlierFactor
-import numpy as np
 
-X = np.array([[10],[12],[11],[13],[100]])
-lof = LocalOutlierFactor(n_neighbors=2)
-outliers = lof.fit_predict(X)
+df = pd.read_csv("dataset1.csv")
 
-print("Outlier Labels:", outliers)
+lof = LocalOutlierFactor(
+    n_neighbors=20,
+    contamination=0.05
+)
+
+df["anomaly"] = lof.fit_predict(df)
+outliers = df[df["anomaly"] == -1]
+
+print(outliers)
