@@ -1,8 +1,15 @@
-models = {
-    "RF": 0.88,
-    "XGBoost": 0.91,
-    "SVM": 0.86
-}
+import pandas as pd
 
-best = max(models, key=models.get)
-print("Best Model:", best)
+def compare_models(results):
+    df = pd.DataFrame(results)
+    return df.sort_values(by="accuracy", ascending=False)
+
+if __name__ == "__main__":
+    model_results = [
+        {"model": "RandomForest", "accuracy": 0.88},
+        {"model": "XGBoost", "accuracy": 0.90},
+        {"model": "SVM", "accuracy": 0.85}
+    ]
+
+    comparison = compare_models(model_results)
+    print(comparison)
