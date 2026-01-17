@@ -1,11 +1,15 @@
+import pandas as pd
 import numpy as np
 
-data = np.array([50, 52, 51, 49, 80])
-mean = data.mean()
-std = data.std()
+df = pd.read_csv("dataset1.csv")
+values = df.iloc[:, 0]
+
+mean = values.mean()
+std = values.std()
 
 ucl = mean + 3 * std
 lcl = mean - 3 * std
 
-print("UCL:", ucl, "LCL:", lcl)
-print("Out of control:", data[(data > ucl) | (data < lcl)])
+df["out_of_control"] = (values > ucl) | (values < lcl)
+
+print(df[df["out_of_control"]])
