@@ -1,26 +1,35 @@
-"""
-Run a simple ML pipeline automatically:
-1. clean -> preprocess -> train -> evaluate
-This script assumes functions exist in scripts/*.py
-"""
-import importlib
-import sys
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+DATA_PATH = "datasets/dataset1.csv"
 
 def run_pipeline():
-    # dynamic import of your scripts
-    try:
-        clean = importlib.import_module("scripts.clean_data")
-        preprocess = importlib.import_module("scripts.preprocess")
-        train = importlib.import_module("scripts.train_model")
-    except Exception as e:
-        print("Make sure scripts.clean_data, scripts.preprocess, scripts.train_model exist:", e)
-        sys.exit(1)
+    df = pd.read_csv(DATA_PATH)
 
-    print("Starting pipeline...")
-    clean.clean_raw()           # expected function
-    preprocess.preprocess()     # expected function
-    train.train_and_save_model()# expected function
-    print("Pipeline finished.")
+    X = df.iloc[:, :-1]
+    y = df.iloc[:, -1]
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
+
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+
+    model = RandomForestClassifier(
+        n_estimators=200,
+        random_state=42
+    )
+
+    model.fit(X_train_scaled, y_train)
+    predictions = model.predict(X_test_scaled)
+
+    accuracy = accuracy_score(y_test, predictions)
+    print(f"Model Accuracy: {accuracy:.4f}")
 
 if __name__ == "__main__":
     run_pipeline()
