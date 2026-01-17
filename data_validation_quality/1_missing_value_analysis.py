@@ -1,8 +1,13 @@
 import pandas as pd
 
-df = pd.DataFrame({
-    "age": [20, None, 25],
-    "salary": [30000, 40000, None]
-})
+def missing_value_report(df):
+    report = pd.DataFrame({
+        "missing_count": df.isnull().sum(),
+        "missing_percentage": df.isnull().mean() * 100
+    })
+    return report[report["missing_count"] > 0]
 
-print(df.isnull().sum())
+if __name__ == "__main__":
+    df = pd.read_csv("datasets/dataset1.csv")
+    report = missing_value_report(df)
+    print(report)
