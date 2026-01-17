@@ -1,34 +1,24 @@
-"""
-Simple Air Quality fetcher using OpenAQ API (public).
-Requires: requests, pandas
-"""
 import requests
-import pandas as pd
 
-API_BASE = "https://api.openaq.org/v2/latest"
+API_KEY = "YOUR_API_KEY"
+CITY = "Delhi"
+URL = "https://api.openweathermap.org/data/2.5/air_pollution"
 
-def get_latest_city(city="Delhi", country=None, limit=100):
-    params = {"city": city, "limit": limit}
-    if country:
-        params['country'] = country
-    res = requests.get(API_BASE, params=params)
-    res.raise_for_status()
-    data = res.json()
-    results = data.get('results', [])
-    # convert to DataFrame
-    rows = []
-    for r in results:
-        loc = r.get('location')
-        for m in r.get('measurements', []):
-            rows.append({
-                'location': loc,
-                'parameter': m['parameter'],
-                'value': m['value'],
-                'unit': m['unit'],
-                'lastUpdated': m['lastUpdated']
-            })
-    return pd.DataFrame(rows)
+def fetch_air_quality(lat, lon):
+    params = {
+        "lat": lat,
+        "lon": lon,
+        "appid": API_KEY
+    }
+    response = requests.get(URL, params=params)
+    response.raise_for_status()
+    data = response.json()
+
+    air_data = data["list"][0]["components"]
+    air_data["aqi"] = data["list"][0]["main"]["aqi"]
+    return air_data
 
 if __name__ == "__main__":
-    df = get_latest_city("Delhi")
-    print(df.head())
+    # Example coordinates for Delhi
+    air_quality = fetch_air_quality(28.6139, 77.2090)
+    print(air_quality)
