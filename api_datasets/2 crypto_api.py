@@ -1,12 +1,17 @@
 import requests
-import pandas as pd
 
-url = "https://api.coindesk.com/v1/bpi/currentprice.json"
+URL = "https://api.coingecko.com/api/v3/simple/price"
+PARAMS = {
+    "ids": "bitcoin,ethereum",
+    "vs_currencies": "usd"
+}
 
-price = requests.get(url).json()
+def fetch_crypto_prices():
+    response = requests.get(URL, params=PARAMS)
+    response.raise_for_status()
+    return response.json()
 
-df = pd.DataFrame([{
-    "BTC_USD": price["bpi"]["USD"]["rate_float"]
-}])
-
-df.to_csv("crypto_price.csv", index=False)
+if __name__ == "__main__":
+    prices = fetch_crypto_prices()
+    for coin, price in prices.items():
+        print(f"{coin.upper()} price: ${price['usd']}")
