@@ -1,6 +1,6 @@
-risk_free_rate = 0.03
-market_return = 0.10
-beta = 1.2
+def capm(risk_free, beta, market_return):
+    return risk_free + beta * (market_return - risk_free)
 
-expected_return = risk_free_rate + beta * (market_return - risk_free_rate)
-print("Expected Return:", expected_return)
+if __name__ == "__main__":
+    expected = capm(0.03, 1.2, 0.10)
+    print("Expected Return (CAPM):", expected)
