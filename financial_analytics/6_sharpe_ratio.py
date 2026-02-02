@@ -1,7 +1,12 @@
 import numpy as np
+import pandas as pd
 
-returns = np.array([0.02, 0.01, -0.01, 0.03])
-risk_free_rate = 0.005
+def sharpe_ratio(returns, risk_free_rate=0.01):
+    excess = returns - risk_free_rate / 252
+    return np.sqrt(252) * excess.mean() / excess.std()
 
-sharpe = (returns.mean() - risk_free_rate) / returns.std()
-print("Sharpe Ratio:", sharpe)
+if __name__ == "__main__":
+    df = pd.read_csv("datasets/dataset2.csv")
+    returns = df["close"].pct_change().dropna()
+
+    print("Sharpe Ratio:", sharpe_ratio(returns))
