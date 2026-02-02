@@ -1,9 +1,15 @@
 import numpy as np
+import pandas as pd
 
-returns = np.random.normal(0.001, 0.02, 1000)
+def var_cvar(returns, confidence=0.95):
+    var = np.percentile(returns, (1 - confidence) * 100)
+    cvar = returns[returns <= var].mean()
+    return var, cvar
 
-var_95 = np.percentile(returns, 5)
-cvar_95 = returns[returns <= var_95].mean()
+if __name__ == "__main__":
+    df = pd.read_csv("datasets/dataset2.csv")
+    returns = df["close"].pct_change().dropna()
 
-print("VaR 95%:", var_95)
-print("CVaR 95%:", cvar_95)
+    var, cvar = var_cvar(returns)
+    print("VaR:", var)
+    print("CVaR:", cvar)
