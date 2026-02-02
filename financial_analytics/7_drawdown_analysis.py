@@ -1,7 +1,13 @@
-import numpy as np
+import pandas as pd
 
-prices = np.array([100,105,102,110,108])
-cum_max = np.maximum.accumulate(prices)
-drawdown = (prices - cum_max) / cum_max
+def max_drawdown(series):
+    cumulative = (1 + series).cumprod()
+    peak = cumulative.cummax()
+    drawdown = (cumulative - peak) / peak
+    return drawdown.min()
 
-print("Max Drawdown:", drawdown.min())
+if __name__ == "__main__":
+    df = pd.read_csv("datasets/dataset2.csv")
+    returns = df["close"].pct_change().dropna()
+
+    print("Max Drawdown:", max_drawdown(returns))
