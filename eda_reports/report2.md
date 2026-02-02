@@ -1,14 +1,14 @@
-# 📊 EDA Report – Customer Dataset
+# Feature Distribution Analysis
 
-### Summary
-- 6 customers.
-- Gender distribution: 3M / 3F.
-- Highest spend: Customer 1 (₹1200).
+## Numerical Features
+- Feature1: Right-skewed distribution
+- Feature2: Approximately normal
+- Feature3: Contains mild outliers
 
-### Insights
-- Young adults spend more.
-- Males show slightly higher average spend.
+## Outlier Detection
+- IQR method identified ~2% extreme values
+- No critical anomalies requiring removal
 
-### Visuals
-See `visualizations/chart2.png`.
-
+## Recommendations
+- Apply standard scaling
+- Keep outliers for model robustness
