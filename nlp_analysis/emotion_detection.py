@@ -1,13 +1,12 @@
-"""
-Simple emotion detection using pretrained transformer (distilbert) from HuggingFace. 
-Requires: transformers
-"""
-from transformers import pipeline
+from textblob import TextBlob
 
-def run_emotion_detector(texts):
-    classifier = pipeline("text-classification", model="j-hartmann/emotion-english-distilroberta-base", top_k=None)
-    return classifier(texts)
+def detect_emotion(text):
+    polarity = TextBlob(text).sentiment.polarity
+    if polarity > 0:
+        return "Positive"
+    elif polarity < 0:
+        return "Negative"
+    return "Neutral"
 
 if __name__ == "__main__":
-    texts = ["I am happy", "I'm so sad and depressed", "This is exciting!"]
-    print(run_emotion_detector(texts))
+    print(detect_emotion("I love building data projects"))
