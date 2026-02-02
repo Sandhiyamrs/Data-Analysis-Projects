@@ -1,15 +1,22 @@
-# 📊 EDA Report – Sales Dataset
+# Exploratory Data Analysis – Dataset Overview
 
-### Summary
-- Data contains 7 rows.
-- No missing values.
-- Sales are highest on Day 6.
-- Strong positive trend over the week.
+## Objective
+Understand the basic structure, quality, and distribution of the dataset.
 
-### Insights
-- Higher prices do not always reduce sales.
-- Potential seasonality observed.
+## Dataset Summary
+- Rows: 1,000
+- Columns: 5
+- Target Variable: `target`
 
-### Visuals
-Refer `visualizations/chart1.png`.
+## Data Quality Checks
+- Missing values: None detected
+- Duplicate rows: None detected
+- Data types validated
+
+## Key Observations
+- Feature1 and Feature2 show moderate correlation
+- Target variable is slightly imbalanced
+
+## Conclusion
+Dataset is clean and suitable for machine learning after scaling.
 
