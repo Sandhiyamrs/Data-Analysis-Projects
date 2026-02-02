@@ -1,18 +1,24 @@
-# Customer Segmentation — EDA Report
+# Customer Segmentation Analysis
 
-## Goal
-Segment customers by recency, frequency, monetary (RFM) metrics.
+## Objective
+Segment customers based on behavioral features.
 
-## Summary
-- Found 3 clusters: High-value, Occasional, Low-value
-- High-value: avg_spend > 500, freq > 10
-- Visuals: RFM scatter, cluster centroids
+## Methodology
+- Feature scaling using StandardScaler
+- KMeans clustering (k = 3)
 
-## Key Metrics
-- Total customers: 4,321
-- Avg order value: ₹420
-- Top segment contributes ~62% revenue
+## Segment Profiles
+### Cluster 1
+- Low activity
+- Price-sensitive users
 
-## Suggested Next Steps
-- Targeted campaigns for Occasional group
-- Loyalty offers for High-value customers
+### Cluster 2
+- Medium engagement
+- Balanced spend
+
+### Cluster 3
+- High-value customers
+- Frequent usage
+
+## Business Insight
+Focus retention strategies on Cluster 3.
