@@ -1,8 +1,10 @@
-from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
-docs = ["I love data science", "Data science is amazing"]
-tfidf = TfidfVectorizer()
-X = tfidf.fit_transform(docs)
+docs = ["data science", "machine learning", "deep learning"]
 
-print(cosine_similarity(X))
+vectorizer = TfidfVectorizer()
+X = vectorizer.fit_transform(docs)
+
+similarity = cosine_similarity(X)
+print(similarity)
