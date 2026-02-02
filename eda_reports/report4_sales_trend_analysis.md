@@ -1,13 +1,16 @@
 # Sales Trend Analysis
 
-## Summary
-- Monthly sales show seasonality: peaks in Nov–Dec.
-- Year-over-year growth: 12% increase.
-- Regions: West shows highest growth.
+## Time Period
+2019 – 2024
 
-## Visuals
-- Monthly line chart
-- Heatmap of sales by category & month
+## Key Trends
+- Overall upward trend in sales
+- Strong seasonality in Q4
+- Dip observed during Q2 2020
 
-## Insights
-- Discounting in Q4 increases volume but reduces margin.
+## Growth Metrics
+- CAGR: 8.4%
+- Best performing month: December
+
+## Conclusion
+Sales are growing steadily with predictable seasonal patterns.
